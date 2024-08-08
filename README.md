@@ -1,8 +1,22 @@
 # CAS CS 320: Concepts of Programming Languages
 
+This repository contains a rough outline of a prototype structure for
+assignments in CS320.  The main differences compared to what has been done in
+the past:
+
+* Assignments are `dune` projects
+
+* There is a course standard library, which disallows the use of the standard
+  library (so that students don't use things like `ref`s)
+
+* Grading is integrated with `OUnit2`, so that we can give students unit tests
+  instead of exposing autograders
+
 ## Student Setup
 
-1. Install `opam` (for Windows users, we recommend using WSL)
+1. [Install `opam`](https://opam.ocaml.org/doc/Install.html) (for Windows
+   users, we recommend setting up a [WSL
+   environment](https://learn.microsoft.com/en-us/windows/wsl/setup/environment)
 
 2. Clone course repository. (Follow existing set-up with mirroring)
 
