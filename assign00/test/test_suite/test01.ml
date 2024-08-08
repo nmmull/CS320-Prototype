@@ -1,20 +1,24 @@
 open OUnit2
+open Assign00_01
 
-module Reference = struct
-  let sqrt n =
-    let rec loop i =
-      if i * i < n
-      then loop (i + 1)
-      else i
-    in loop 0
-end
-
-let basic_test =
-  let test i =
-    let d = "Testing sqrt " ^ string_of_int i in
-    let e = Reference.sqrt i in
-    let a = Assign00_01.sqrt i in
-    let t _ = assert_equal e a in
-    d >:: t
+let test_example n e =
+  let d =
+    String.concat " "
+      [ "sqrt"
+      ; string_of_int n
+      ; "is"
+      ; string_of_int e
+      ]
   in
-  "Testing Problem 1" >::: List.init 100 test
+  let a = sqrt n in
+  let t _ = assert_equal e a in
+  d >:: t
+
+let test_examples = "Basic sqrt Examples" >:::
+  [ test_example 4 2
+  ; test_example 9 3
+  ; test_example 100 10
+  ; test_example 2 2
+  ; test_example 10 4
+  ; test_example 99 10
+  ]

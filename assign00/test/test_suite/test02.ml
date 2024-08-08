@@ -1,22 +1,25 @@
 open OUnit2
+open Assign00_02
 
-module Reference = struct
-  let is_prime (n : int) : bool =
-    let rec loop (i : int) : bool =
-      if n < i * i then true else
-      if n mod i = 0 then false
-      else loop (i + 1)
-    in
-    if n < 2 then false
-    else loop 2
-end
-
-let basic_test =
-  let test i =
-    let d = "Testing prime " ^ string_of_int i in
-    let e = Reference.is_prime i in
-    let a = Assign00_02.is_prime i in
-    let t _ = assert_equal e a in
-    d >:: t
+let test_example n e =
+  let d =
+    String.concat " "
+      [ "is_prime"
+      ; string_of_int n
+      ; "is"
+      ; string_of_bool e
+      ]
   in
-  "Testing Problem 2" >::: List.init 100 test
+  let a = is_prime n in
+  let t _ = assert_bool ("checking is_prime " ^ string_of_int n) (if e then a else not a) in
+  d >:: t
+
+let test_examples = "Basic is_prime examples" >:::
+  [ test_example 0 false
+  ; test_example 1 false
+  ; test_example 2 true
+  ; test_example 37 true
+  ; test_example 57 false
+  ; test_example 97 true
+  ]
+

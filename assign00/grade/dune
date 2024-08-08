@@ -1,4 +1,4 @@
 (executable
  (name grade_assign00)
- (public_name grader)
+ (public_name grade)
  (libraries ounit2 assign00 test_suite))
