@@ -1,0 +1,4 @@
+(test
+ (name test_stdlib320)
+ (libraries stdlib320)
+ (flags (:standard -open Stdlib320)))

@@ -106,7 +106,7 @@ let to_results statuses test_infos =
 let to_json results =
   String.concat "\n"
     [ "{"
-    ;  "\"output\": \"Submission accepted.\""
+    ;  "\"output\": \"Submission accepted.\","
     ; "\"tests\": ["
     ; String.concat ",\n" (List.map Test_result.to_json results)
     ; "]"
@@ -116,7 +116,7 @@ let to_json results =
 let error_json =
   String.concat "\n"
     [ "{"
-    ; "\"score\": 0"
+    ; "\"score\": 0,"
     ; "\"output\": \"Error grading submission. Please contact course staff.\""
     ; "}"
     ]

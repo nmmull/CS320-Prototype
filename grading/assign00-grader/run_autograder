@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+bash source/run.sh assigns/assign00
