@@ -1,6 +1,5 @@
-This repository contains a rough outline of a prototype structure for
-assignments in CS320.  The main differences compared to what has been done in
-the past:
+This repository contains a prototype structure for assignments in CS320.  The
+main differences compared to what has been done in the past:
 
 * Assignments are `dune` projects
 
