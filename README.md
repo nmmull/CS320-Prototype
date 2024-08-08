@@ -15,7 +15,7 @@ the past:
 ## Student Setup
 
 1. [Install `opam`](https://opam.ocaml.org/doc/Install.html) (for Windows
-   users, we recommend setting up a [WSL
+   users, we recommend setting up a [WSL development
    environment](https://learn.microsoft.com/en-us/windows/wsl/setup/environment))
 
 2. Mirror the public course repository (as we did [last
@@ -29,10 +29,11 @@ the past:
    opam install stdlib320/.
    ```
    The first command creates a local switch within the repository using the
-   compiler for OCaml 4.13.1.  The next command installs `dune`, `utop`, and
+   compiler for OCaml 4.13.1 (the only available to the Ubuntu imaged used for
+   Gradescope's autograders).  The next command installs `dune`, `utop`, and
    `ounit2`.  The last command installs the course standard library
 
-6. (Optional) If you are using VSCode, install the OCaml language server protocol:
+6. (Optional) If you are using VSCode, install the OCaml language server protocol
    ```
    opam install ocaml-lsp-server
    ```
@@ -63,7 +64,8 @@ the past:
    dune build
    ```
 
-5. Test your code against a small test suite as you get close to a final solution
+5. Test your code against a small OUnit test suite as you get close to a final
+   solution
 
    ```
    dune test
@@ -83,18 +85,21 @@ the past:
    dune init project --kind=library assignXX
    ```
 
-2. Add the following to the library stanza in `lib/dune`:
+2. Add the following to the library stanza in `lib/dune`
 
    ```
    (wrapped false)
    (flags (:standard -nostdlib -nopervasives -open Stdlib320))
    ```
 
+   This ensures that the students will be graded without access to the full
+   standard library
+
 3. Fill in the solutions and create unit tests.  It's best to put the unit
    tests in a separate library with its own directory and dune file (e.g.,
-   `test/test_suite`) so that they are accessible to the grading script.  The
-   tests should be separated into public tests which are given to the students,
-   and private tests which are used for grading.
+   in the directory `test/test_suite`) so that they are accessible to the
+   grading script.  The tests should be separated into public tests which are
+   given to the students, and private tests which are used for grading
 
 4. Add a `grade` directory to the project with the grading scripts
    (`gSUnit.ml`) and a dune file with an executable whose public name is
@@ -118,20 +123,32 @@ the past:
      ; Grade01.basic_test, 8
      ; Grade02.basic_test, 8
      ]
+
+   let _ = run_tests_gradescope tests
    ```
 
-   You can check the output of the autograder given to gradescope using dune.
+   An OUnit test can have as many parts as you'd like, the score will be
+   distributed uniformly across all parts.  You can check the output of the
+   autograder given to gradescope using dune
 
    ```
    dune exec grade
    ```
 
-4. To create an autograder, you just have to zip up the assignment (with the
-   same file structure as in the public repository) with the standard library
-   and the scripts `run.sh`, `setup.sh` and the appropriate instantiation of
-   `run_autograder`.  This is done by the (not terribly robust) script
-   `build.sh`.  (Note: The point is that the solution built in the developer
-   repository is the exact environment in which a student submission will be
-   graded. These scripts copy the student `.ml` files into the project and run
-   `dune exec grade` from there.)
+4. To create an autograder, zip up the assignment (with the same file structure
+   as in the public repository) with the standard library and the scripts
+   `run.sh`, `setup.sh` and the appropriate instantiation of `run_autograder`.
+   This is done by the (not terribly robust) script `build.sh`.  (Note: The
+   point is that the solution built in the developer repository is the exact
+   environment in which a student submission will be graded. These scripts copy
+   the student's `.ml` files into the `lib` directory and run `dune exec grade`
+   from there.)
 
+5. Create an assignment in the public facing repository.  Make sure to
+
+   * Remove the solutions from the files in `lib`
+
+   * Remove the `grade` directory
+
+   * Remove the private grading tests in `test` (or `test/test_suite`) as well
+     as any references to them in `test_assignXX.ml`
