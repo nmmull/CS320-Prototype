@@ -1,5 +1,3 @@
-# CAS CS 320: Concepts of Programming Languages
-
 This repository contains a rough outline of a prototype structure for
 assignments in CS320.  The main differences compared to what has been done in
 the past:
